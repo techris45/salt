@@ -46,3 +46,33 @@ def salt_sub_minion(salt_master, salt_sub_minion_factory):
 def salt_proxy(salt_master, salt_proxy_factory):
     with salt_proxy_factory.started():
         yield salt_proxy_factory
+
+
+@pytest.fixture(scope="package")
+def salt_cli(salt_master):
+    return salt_master.get_salt_cli()
+
+
+@pytest.fixture(scope="package")
+def salt_cp_cli(salt_master):
+    return salt_master.get_salt_cp_cli()
+
+
+@pytest.fixture(scope="package")
+def salt_key_cli(salt_master):
+    return salt_master.get_salt_key_cli()
+
+
+@pytest.fixture(scope="package")
+def salt_run_cli(salt_master):
+    return salt_master.get_salt_run_cli()
+
+
+@pytest.fixture(scope="package")
+def salt_ssh_cli(salt_master):
+    return salt_master.get_salt_ssh_cli()
+
+
+@pytest.fixture(scope="package")
+def salt_call_cli(salt_minion):
+    return salt_minion.get_salt_call_cli()

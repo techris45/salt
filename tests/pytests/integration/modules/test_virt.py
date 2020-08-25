@@ -9,10 +9,7 @@ from xml.etree import ElementTree
 import pytest
 from saltfactories.utils import cli_scripts
 from tests.support.helpers import skip_if_binaries_missing, slowTest
-from tests.support.saltfactories_compat import (
-    ContainerFactory,
-    SaltVirtMinionContainerFactory,
-)
+from tests.support.virt import SaltVirtMinionContainerFactory
 
 docker = pytest.importorskip("docker")
 
@@ -26,7 +23,7 @@ def docker_client():
     urllib3_connectionpool_handler.setLevel(logging.INFO)
     try:
         client = docker.from_env()
-        connectable = ContainerFactory.client_connectable(client)
+        connectable = SaltVirtMinionContainerFactory.client_connectable(client)
         if connectable is not True:  # pragma: no cover
             pytest.skip(connectable)
         client.images.pull("quay.io/rst0git/virt-minion")
